@@ -1,6 +1,7 @@
-﻿label start:
+﻿
 
+label start:
     call screen desktopUI
     pause
 
-return
+    return
