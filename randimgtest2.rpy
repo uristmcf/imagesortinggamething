@@ -23,50 +23,39 @@ init python:
         return selectedImage
 
 
+default imagecount = 0
+
 label randimgtest2:
-    $ imagecount  = 0
-    $ randgamenbr = renpy.random.randint(0,1)
-    if (randgamenbr == 0):
-        $ imagecount += 1
-        jump randimgaccept
-    
-    elif (randgamenbr == 1):
-        $ imagecount += 1
-        jump randimgreject
+    $ imagecount  += 1
+    jump expression renpy.random.choice([ 'randimgaccept', 'randimgreject' ])
 
 label randimgaccept:
     show expression showRandomAImage() at truecenter
     "accepted image"
     pause
     "You have seen [imagecount] images."
-    if imagecount >= 10:
+    if imagecount <= 10:
         scene black
         jump randimgtest2
-    elif imagecount <= 10:
+    elif imagecount >= 10:
         scene black
         jump randimgend
-    else:
-        scene black
-        jump start
 
 label randimgreject:
     show expression showRandomRImage() at truecenter
     "rejected image"
     pause
     "You have seen [imagecount] images."
-    if imagecount >= 10:
+    if imagecount <= 10:
         scene black
         jump randimgtest2
-    elif imagecount <= 10:
+    elif imagecount >= 10:
         scene black
         jump randimgend
-    else:
-        scene black
-        jump start
     
 label randimgend:
     "You saw [imagecount] images. Clearing."
-    $ imagecount == 0
+    $ imagecount = 0
     scene black
     jump start
 
