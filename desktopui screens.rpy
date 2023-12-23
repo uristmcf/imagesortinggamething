@@ -28,3 +28,19 @@ screen desktopUI():
         idle "pb"
         hover "rbdown"
         action NullAction()
+
+screen gamescreen():
+
+    imagebutton:
+        xalign 0.3
+        yalign 0.8
+        idle "yes"
+        hover "gbdown"
+        action [If(acceptimage == 1, true = [SetVariable("gamepoints", gamepoints + 1 )], false = [SetVariable("gamepoints", gamepoints - 1 )]), Hide(screen=None), Jump("randimgaccept2")]
+
+    imagebutton:
+        xalign 0.7
+        yalign 0.8
+        idle "no"
+        hover "rbdown"
+        action [If(rejectimage == 1, true = [SetVariable("gamepoints", gamepoints + 1 )], false = [SetVariable("gamepoints", gamepoints - 1 )]), Hide(screen=None), Jump("randimgreject2")]
